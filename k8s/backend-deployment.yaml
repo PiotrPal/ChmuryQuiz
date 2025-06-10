@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quiz-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: quiz-backend
+  template:
+    metadata:
+      labels:
+        app: quiz-backend
+    spec:
+      containers:
+        - name: backend
+          image: vaciooo/quiz-backend:latest
+          ports:
+            - containerPort: 5000
+          env:
+            - name: SQLALCHEMY_DATABASE_URI
+              value: postgresql://postgres:password@quiz-db:5432/quizdb
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: quiz-backend
+spec:
+  selector:
+    app: quiz-backend
+  ports:
+    - port: 5000
+      targetPort: 5000
+  type: ClusterIP

@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quiz-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: quiz-db
+  template:
+    metadata:
+      labels:
+        app: quiz-db
+    spec:
+      containers:
+        - name: postgres
+          image: postgres
+          env:
+            - name: POSTGRES_DB
+              value: "quizdb"
+            - name: POSTGRES_USER
+              value: "postgres"
+            - name: POSTGRES_PASSWORD
+              value: "password"
+          volumeMounts:
+            - mountPath: /docker-entrypoint-initdb.d
+              name: init-script
+      volumes:
+        - name: init-script
+          configMap:
+            name: init-sql
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: init-sql
+data:
+  init.sql: |
+    CREATE TABLE IF NOT EXISTS question (
+    id SERIAL PRIMARY KEY,
+    question TEXT NOT NULL,
+    answer TEXT NOT NULL
+);
+
+INSERT INTO question (question, answer) VALUES
+('What is the capital of France?', 'Paris'),
+('2 + 2 = ?', '4'),
+('Who wrote Hamlet?', 'Shakespeare');
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: quiz-db
+spec:
+  selector:
+    app: quiz-db
+  ports:
+    - port: 5432
+      targetPort: 5432
