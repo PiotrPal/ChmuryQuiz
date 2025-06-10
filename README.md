@@ -13,8 +13,8 @@ Prosta aplikacja quizowa umożliwiająca tworzenie quizów (jako administrator) 
 
 - Python 3.10+ (dla backendu)
 - Node.js (najlepiej 18+)
-- npm lub yarn (do zarządzania frontendem)
-- Docker (opcjonalnie, np. do bazy danych Postgres)
+- npm (do zarządzania frontendem)
+- Docker ( Postgres)
 
 ---
 
@@ -53,10 +53,11 @@ cd ../frontend
     W konsoli (PowerShell, CMD lub terminalu):
 bash
  4. **Baza**
-    ```bash
-    docker run --name quiz-postgres -e POSTGRES_USER=quizuser -e POSTGRES_PASSWORD=quizpass -e POSTGRES_DB=quizdb -p 5432:5432 -d postgres
+```bash
+    docker run --name quiz-postgres -e POSTGRES_USER=quizuser -e POSTGRES_PASSWORD=quizpass -e POSTGRES_DB=quizdb -p 5432:5432 -d postgres  
+ ```  
 
-•	Ta komenda uruchomi kontener z PostgreSQL, dostępny na porcie 5432.
-•	Użytkownik: quizuser
-•	Hasło: quizpass
-•	Baza: quizdb
+•	Ta komenda uruchomi kontener z PostgreSQL, dostępny na porcie 5432.  
+•	Użytkownik: quizuser  
+•	Hasło: quizpass  
+•	Baza: quizdb  
