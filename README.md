@@ -49,3 +49,14 @@ cd ../frontend
     npm install
 
     npm start
+
+    W konsoli (PowerShell, CMD lub terminalu):
+bash
+ 4. **Baza**
+    ```bash
+    docker run --name quiz-postgres -e POSTGRES_USER=quizuser -e POSTGRES_PASSWORD=quizpass -e POSTGRES_DB=quizdb -p 5432:5432 -d postgres
+
+•	Ta komenda uruchomi kontener z PostgreSQL, dostępny na porcie 5432.
+•	Użytkownik: quizuser
+•	Hasło: quizpass
+•	Baza: quizdb
